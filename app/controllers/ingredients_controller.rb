@@ -14,7 +14,8 @@ class IngredientsController < ApplicationController
 
   # GET /ingredients/new
   def new
-    @ingredient = Ingredient.new
+    @ingredient = Ingredient.new(recipe_id: params[:recipe_id])
+
   end
 
   # GET /ingredients/1/edit
@@ -28,7 +29,7 @@ class IngredientsController < ApplicationController
 
     respond_to do |format|
       if @ingredient.save
-        format.html { redirect_to @ingredient, notice: 'Ingredient was successfully created.' }
+        format.html { redirect_to recipe_path(@ingredient.recipe_id), notice: 'Ingredient was successfully created.' }
         format.json { render :show, status: :created, location: @ingredient }
       else
         format.html { render :new }
@@ -56,7 +57,7 @@ class IngredientsController < ApplicationController
   def destroy
     @ingredient.destroy
     respond_to do |format|
-      format.html { redirect_to ingredients_url, notice: 'Ingredient was successfully destroyed.' }
+      format.html { redirect_to recipe_path(@ingredient.recipe_id), notice: 'Ingredient was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +70,6 @@ class IngredientsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ingredient_params
-      params.require(:ingredient).permit(:name, :amount, :unit, :recipe_index)
+      params.require(:ingredient).permit(:name, :amount, :unit, :recipe_id)
     end
 end

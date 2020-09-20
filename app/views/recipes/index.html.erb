@@ -15,13 +15,23 @@
       <tr>
         <td><%= recipe.name %></td>
         <td><%= link_to 'Show', recipe %></td>
-        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
-        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
+        <% if recipe.user == current_user %>
+          <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
+          <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<% if user_signed_in? %>
 <%= link_to 'New Recipe', new_recipe_path %>
+<br>
+<%= link_to 'Logout', destroy_user_session_path %>
+<% else %>
+<%= link_to 'Sign In', new_user_session_path %>
+<%= link_to 'Sign Up', new_user_registration_path %>
+<% end %>
