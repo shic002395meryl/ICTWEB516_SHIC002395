@@ -15,7 +15,7 @@ Ingredients:
 </p>
 
 <% @recipe.ingredients.each do |ingredient| %>
-  <p><%= ingredient.amount %> <%= ingredient.unit %> of <%= ingredient.name %>
+  <p> - <%= ingredient.amount %> <%= ingredient.unit %> of <%= ingredient.name %>
   <% if @recipe.user == current_user %>
   | <%= link_to 'Delete', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %>
   <% end %> 
